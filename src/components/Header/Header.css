@@ -1,0 +1,59 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;      /*smaller padding*/
+  background-color: rgb(133, 241, 133);
+  font-size: 14px;        
+  height: 50px;
+  width: 100% 
+  
+}
+.header {
+  padding-left: 0;   /*remove only left padding*/
+  padding-right: 15px; /* keep some space for right links*/
+}
+
+.header {
+  padding-right: 16px;  /* small gap on right side */
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;   /* ensures it stays on top of other elements */
+}
+
+.header-left .logo {
+  height: 70px;            /* smaller logo */
+}
+
+.header-right a {
+  margin-left: 30px; /* space between links */
+  color: black;
+  font-weight: 400;       
+}
+
+.header-right a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;         /*let it grow for stacked layout*/
+    padding: 8px 12px;
+  }
+
+  .header-right {
+    margin-top: 8px;
+  }
+
+  .header-right a {
+    margin-left: 0;
+    margin-right: 12px;
+  }
+}
