@@ -3,15 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import { useState, useEffect } from "react";
 import "./App.css";
+import ContactUsForm from "./components/ContactUsForm/ContactUsForm";
 
 
 function Home() {
   return (
     
     <div className="home-container">
-
       <h1>Welcome to the mini online course of Process Feedback</h1>
-
       <p>
         This mini online course is designed to help Process Feedback users become familiar with our application. 
         The introductory video will guide you step-by-step on how to navigate the Process Feedback tool, 
@@ -29,9 +28,6 @@ function About() {
   return <h1>About Process Feedback</h1>;
 }
 
-function Contact() {
-  return <h1>Contact Us</h1>;
-}
 
 function App() {
   return (
@@ -40,7 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/about" element={<About/>} />
-        <Route path="/contact" element={<Contact/>} />
+        <Route path="/contact" element={<ContactUsForm/>} />
       </Routes>
     </Router>
   );

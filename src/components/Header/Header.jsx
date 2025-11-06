@@ -12,11 +12,11 @@ function Header() {
 
       {/*Navigaion links on the right side in navbar*/}
       <nav className="header-right">
-        <a 
-            href="https://www.processfeedback.org/about/"
-            target="_blank" //open in the new tab so my my current app opens still 
+        <a
+          href="https://www.processfeedback.org/about/"
+          target="_blank" //pf about page will open in the new tab so my my current app opens still 
         >
-            About Process Feedback 
+          About Process Feedback
         </a>
         <a href="/contact">Contact Us</a>
       </nav>
