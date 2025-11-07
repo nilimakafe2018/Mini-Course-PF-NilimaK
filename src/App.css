@@ -1,27 +1,54 @@
-/* App.css */
 
-/* Home page container */
 .home-container {
-  padding-top: 120px;      /* push content below navbar */
+  padding-top: 120px;      
   display: flex;
-  flex-direction: column;   /* stack children vertically */
-  align-items: center;      /* center horizontally */
+  flex-direction: column;  
+  align-items: center;     
   text-align: center;
   padding-left: 20px;
   padding-right: 20px;
 }
 
-/* Home page heading */
-.home-container h1 {
-  margin: 0;
+.home-container p {
+  max-width: 900px;        
+  line-height: 1.6;        
+  font-size: 19px;
+  margin-top: 20px;         
 }
 
-/* Home page paragraph */
-.home-container p {
-  max-width: 700px;         /* limit line width */
-  line-height: 1.6;         /* spacing between lines */
-  font-size: 18px;
-  margin-top: 20px;
-  word-wrap: break-word;    /* wrap long words */
-  white-space: normal;      /* normal text wrapping */
+.home-inputs{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 350px;
+  align-items: center;
 }
+
+.home-inputs input{
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid rgb(33, 204, 33);
+}
+
+.start-button{
+  width: 100%;
+  padding: 12px;
+  font-size: 17px;
+  background-color: #85f183;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.start-button:hover {
+  background-color: #6fd669;
+}
+
+.error-msg {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 15px;
+} 
