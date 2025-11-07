@@ -7,6 +7,22 @@ import ContactUsForm from "./components/ContactUsForm/ContactUsForm";
 
 
 function Home() {
+  const[fullname, setFullName] = useState("");
+  const[email, setEmail] = useState("");
+  const[error, setError] = useState("");
+  const[startCourse, setStartCourse] = useState(false);
+
+  const handleStartCourse = () =>{
+    if(!fullname || !email){
+      setError("Please enter both your fullname and email.");
+      return;
+    }
+
+    setError("");
+    setStartCourse(true);
+
+  }
+
   return (
     
     <div className="home-container">
@@ -20,6 +36,30 @@ function Home() {
         and submitting the form. If you would like to learn more about Process Feedback, simply click About 
         Process Feedback in the navigation bar.
       </p>
+
+      {error && <p className="error-msg">{error}</p>}
+
+      <div className="home-inputs">
+        <input
+          type="text"
+          placeholder="Enter your full name"
+          value={fullname}
+          onChange={(e) => setFullName(e.target.value)}
+        />
+
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <button className="start-button" onClick={handleStartCourse}>
+           Start Course
+        </button>
+
+      </div>
+      
     </div>
   );
 }
