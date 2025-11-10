@@ -1,42 +1,42 @@
-import Header from "../Header/Header.jsx";
-import React from "react";
+import Button from "../Button/Button"; // importing my child component 
 import YouTube from "react-youtube";
+import React from "react";
+import { useNavigate } from "react-router-dom"; 
 
+function CourseVideo() {
+  const navigate = useNavigate();
 
-function CourseVideo(){
-    const videoOptions = {
-        height: "450",
-        width: "800",
-        playerVars: {
-            autoplay:0, //no auto play my video
-        },
+  const videoOptions = {
+    height: "450",
+    width: "800",
+    playerVars: {
+      autoplay: 0, //no autoplay
+    },
+  };
 
-    }
+  const handleNext = () => {
+    navigate("/quiz1"); //redirecting to my first MC quiz page
+  };
 
-    return(
-        <div style={{display:"flex", flexDirection:"column", alignItems:"center", gap:"20px", margin:"100px"}}>
-            <h2>Course Introduction Video</h2>
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "20px",
+        margin: "100px",
+      }}
+    >
 
-            {/* adding my video id from youtube link */}
-            <YouTube videoId="GC_bSiYrfRQ" opts={videoOptions}/> 
+      <h2>Course Introduction Video</h2>
+      <p>Please watch the video completely before clicking Next.</p>
 
-            <button 
-                style={{
-                    padding:"10px 20px",
-                    fontSize:"16px",
-                    cursor:"pointer",
-                    borderRadius:"5px",
-                    background:"#85f183",
-                    border:"none"
-                }}
-            >
-                Next
+      <YouTube videoId="GC_bSiYrfRQ" opts={videoOptions} />
 
-            </button>
-
-        </div>
-    )
+      <Button text="Next" onClick={handleNext} />
+    </div>
+  );
 }
-
 
 export default CourseVideo;
