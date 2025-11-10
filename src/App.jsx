@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import ContactUsForm from "./components/ContactUsForm/ContactUsForm";
 import CourseVideo from "./components/CourseVideo/CourseVideo";
 import QuizQuestion1 from "./components/QuizQuestions/QuizQuestion1";
@@ -8,13 +8,15 @@ import QuizQuestion4 from "./components/QuizQuestions/QuizQuestion4";
 import QuizQuestion5 from "./components/QuizQuestions/QuizQuestion5";
 import QuizQuestion6 from "./components/QuizQuestions/QuizQuestion6";
 import Header from "./components/Header/Header";
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 function Home() {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
 
   const handleStartCourse = () => {
     if (!fullname || !email) {
@@ -84,7 +86,8 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      {/*my navbar will be visible always because I placed <Header /> outside of <Routes></Routes>*/}
+      <Header /> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

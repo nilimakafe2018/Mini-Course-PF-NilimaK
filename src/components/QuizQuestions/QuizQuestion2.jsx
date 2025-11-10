@@ -1,25 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Option from "./Option"; // importing reusable child component
+import Option from "./Option";// importing reusable child component
 import Button from "../Button/Button";
-import Header from "../Header/Header.jsx";
-import "./QuizQuestion.css";
 
-function QuizQuestion2({ saveAnswer }) {
+
+function QuizQuestion2({saveAnswer}) {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
   const [error, setError] = useState("");
 
   // Example Q2 question
-  const question = "Which feature helps users navigate the Process Feedback tool?";
+  const question = "In the report page of Process Feedback, when you want to view your detailed writing process, which option should you choose?";
   const options = [
-    "Video tutorials",
-    "Automatic grading",
-    "CSS styling",
-    "React components"
+    "Quick Report",
+    "Options",
+    "Next",
+    "Full Report"
   ];
 
-  const correctAnswer = "Video tutorials";
+  const correctAnswer = "Full Report";
 
   const handleNext = () => {
     if (!selectedOption) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Option from "./Option"; // importing reusable child component
 import Button from "../Button/Button";
-import "./QuizQuestion.css";
+
 
 function QuizQuestion1({ saveAnswer }) {
   const navigate = useNavigate();
