@@ -11,11 +11,11 @@
 }
 .header {
   padding-left: 0;   /*remove only left padding*/
-  padding-right: 15px; /* keep some space for right links*/
+  padding-right: 10px; /* keep some space for right links*/
 }
 
 .header {
-  padding-right: 16px;  /* small gap on right side */
+  padding-right: 10px;  /* small gap on right side */
 }
 
 .header {
