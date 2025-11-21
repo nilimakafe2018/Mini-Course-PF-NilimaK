@@ -11,15 +11,13 @@ function QuizQuestion6({ saveAnswer }) {
   const [selectedOption, setSelectedOption] = useState("");
   const [error, setError] = useState("");
 
-  const question = "What is the main purpose of the Process Feedback mini-course?";
+  const question = "To share your writing report with someone, you can simply click the ‘Copy Report Link’ option in the sidebar, or copy the link directly from the URL.";
   const options = [
-    "To learn React",
-    "To get familiar with Process Feedback application",
-    "To learn CSS Grid and Flexbox",
-    "To submit assignments automatically"
+    "True",
+    "False",
   ];
 
-  const correctAnswer = "To get familiar with Process Feedback application";
+  const correctAnswer = "True";
 
   const handleNext = () => {
     if (!selectedOption) {
