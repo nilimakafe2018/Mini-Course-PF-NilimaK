@@ -10,15 +10,15 @@ function QuizQuestion3({ saveAnswer }) {
   const [selectedOption, setSelectedOption] = useState("");
   const [error, setError] = useState("");
 
-  const question = "What is the main purpose of the Process Feedback mini-course?";
+  const question = "In the report page, what does copy-paste-events section does?";
   const options = [
-    "To learn React",
-    "To get familiar with Process Feedback application",
-    "To learn CSS Grid and Flexbox",
-    "To submit assignments automatically"
+    "It shows how many times I copy-pasted during my writing journey",
+    "It displays the number of comments the instructor left on my final submission.",
+    "It shows how long I spent writing each paragraph of the assignment.",
+    "It tracks the number of grammar and spelling mistakes in my draft."
   ];
 
-  const correctAnswer = "To get familiar with Process Feedback application";
+  const correctAnswer = "It shows how many times I copy-pasted during my writing journey";
 
   const handleNext = () => {
     if (!selectedOption) {
