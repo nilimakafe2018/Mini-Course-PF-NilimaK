@@ -13,19 +13,10 @@ import React, { useState } from "react";
 import "./App.css";
 
 function Home() {
-  const [fullname, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
 
   const handleStartCourse = () => {
-    // if (!fullname || !email) {
-    //   setError("Please enter both your fullname and email.");
-    //   return;
-    // }
-
-    setError("");
     navigate("/course")
 
   }
@@ -44,30 +35,12 @@ function Home() {
         Process Feedback in the navigation bar.
       </p>
 
-      {error && <p className="error-msg">{error}</p>}
-
-      <div className="home-inputs">
-        <input
-          type="text"
-          placeholder="Enter your full name"
-          value={fullname}
-          onChange={(e) => setFullName(e.target.value)}
-        />
-
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
 
         <button className="start-button" onClick={handleStartCourse}>
           Start Course
         </button>
 
       </div>
-
-    </div>
   );
 }
 

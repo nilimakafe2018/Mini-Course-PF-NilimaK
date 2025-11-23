@@ -4,12 +4,11 @@ import Option from "./Option";// importing reusable child component
 import Button from "../Button/Button";
 
 
-function QuizQuestion2({saveAnswer}) {
+function QuizQuestion2({choiceSelected}) {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("");
   const [error, setError] = useState("");
 
-  // Example Q2 question
   const question = "In the report page of Process Feedback, when you want to view your detailed writing process, which option should you choose?";
   const options = [
     "Quick Report",
@@ -17,21 +16,17 @@ function QuizQuestion2({saveAnswer}) {
     "Next",
     "Full Report"
   ];
-
   const correctAnswer = "Full Report";
 
-  const handleNext = () => {
-    // if (!selectedOption) {
-    //   setError("Please select an answer before proceeding.");
-    //   return;
-    // }
-
-    setError("");
-    saveAnswer("q2", selectedOption === correctAnswer);
-
-    // Navigate to next quiz page (or final score page)
-    navigate("/quiz3"); 
-  };
+  function handleSelectionChange(selectedChoice) {
+    setSelectedOption(selectedChoice);
+    if (selectedChoice == correctAnswer) {
+      choiceSelected(true)
+    }
+    else {
+      choiceSelected(false);
+    }
+  }
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px", margin: "50px" }}>
@@ -44,7 +39,7 @@ function QuizQuestion2({saveAnswer}) {
             key={option}
             optionText={option}
             selectedOption={selectedOption}
-            onSelect={setSelectedOption}
+            onSelect={handleSelectionChange}
           />
         ))}
       </div>

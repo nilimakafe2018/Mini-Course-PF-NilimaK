@@ -1,0 +1,79 @@
+/* Page container for better layout */
+.certificate-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.certificate-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+.certificate-container input[type="text"],
+.certificate-container input[type="color"] {
+  width: 80%;
+  max-width: 400px;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 18px;
+  border: 2px solid #8ced95;
+  border-radius: 10px;
+}
+
+/* Buttons */
+.certificate-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  background: #6dea7e;
+  color: black;
+  margin-left: 10px;
+}
+
+.certificate-container button:hover {
+  opacity: 0.9;
+}
+
+/* Custom list items */
+.certificate-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.certificate-container li {
+  margin-bottom: 10px;
+}
+
+/* Certificate preview box */
+.certificate {
+  width: 650px;
+  margin: 40px auto;
+  padding: 40px;
+  text-align: center;
+  border: 6px solid;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.certificate h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.certificate h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.custom-section p {
+  font-size: 20px;
+  margin: 6px 0;
+}

@@ -34,7 +34,6 @@
 }
 
 .start-button{
-  width: 100%;
   padding: 12px;
   font-size: 17px;
   background-color: #85f183;
@@ -46,9 +45,3 @@
 .start-button:hover {
   background-color: #6fd669;
 }
-
-.error-msg {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 15px;
-} 
