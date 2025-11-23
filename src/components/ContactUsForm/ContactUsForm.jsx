@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./ContactUsForm.css";
 
 function ContactUsForm() {
@@ -7,7 +7,6 @@ function ContactUsForm() {
     const [message, setMessage] = useState("");
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
-
 
     const handleSubmit = (e) => {
         e.preventDefault();

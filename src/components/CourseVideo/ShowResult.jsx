@@ -1,5 +1,3 @@
-import React from "react";
-import CertificatePreview from "../Certificate/CertificatePreview";
 import CertificateCreator from "../Certificate/CertificateCreator";
 import ReDo from "./ReDo";
 

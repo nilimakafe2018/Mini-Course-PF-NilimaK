@@ -1,5 +1,3 @@
-import React from "react";
-
 function Button({text, onClick}){
     return(
         <button
@@ -18,4 +16,5 @@ function Button({text, onClick}){
         </button>
     )
 }
+
 export default Button;

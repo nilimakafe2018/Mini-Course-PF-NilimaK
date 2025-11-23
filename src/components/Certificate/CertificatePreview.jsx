@@ -1,6 +1,4 @@
-import React from "react";
 import "./certificate.css";
-
 
 function CertificatePreview({ name, color, customItems }) {
   return (

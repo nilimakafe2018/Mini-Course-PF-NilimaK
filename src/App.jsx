@@ -1,12 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import ContactUsForm from "./components/ContactUsForm/ContactUsForm";
 import CourseVideo from "./components/CourseVideo/CourseVideo";
-import QuizQuestion1 from "./components/QuizQuestions/QuizQuestion1";
-import QuizQuestion2 from "./components/QuizQuestions/QuizQuestion2";
-import QuizQuestion3 from "./components/QuizQuestions/QuizQuestion3";
-import QuizQuestion4 from "./components/QuizQuestions/QuizQuestion4";
-import QuizQuestion5 from "./components/QuizQuestions/QuizQuestion5";
-import QuizQuestion6 from "./components/QuizQuestions/QuizQuestion6";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import React, { useState } from "react";
@@ -69,12 +63,6 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<ContactUsForm />} />
             <Route path="/course" element={<CourseVideo />} />
-            {/* <Route path="/quiz1" element={<QuizQuestion1 saveAnswer={saveAnswer} />} /> */}
-            {/* <Route path="/quiz2" element={<QuizQuestion2 saveAnswer={saveAnswer} />} />
-            <Route path="/quiz3" element={<QuizQuestion3 saveAnswer={saveAnswer} />} />
-            <Route path="/quiz4" element={<QuizQuestion4 saveAnswer={saveAnswer} />} />
-            <Route path="/quiz5" element={<QuizQuestion5 saveAnswer={saveAnswer} />} />
-            <Route path="/quiz6" element={<QuizQuestion6 saveAnswer={saveAnswer} />} /> */}
           </Routes>
         </div>
         <Footer />

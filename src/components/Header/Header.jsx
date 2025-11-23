@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"; //importing navigate hook
 import logo from "../../assets/PFLogo.png";
-import React from "react";
 import "./Header.css";
 
 function Header() {

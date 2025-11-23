@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Option from "./Option";// importing reusable child component
-import Button from "../Button/Button";
-
+import Option from "./Option";
 
 function QuizQuestion2({choiceSelected}) {
   const navigate = useNavigate();
@@ -46,7 +44,6 @@ function QuizQuestion2({choiceSelected}) {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      {/* <Button text="Next" onClick={handleNext} /> */}
     </div>
   );
 }

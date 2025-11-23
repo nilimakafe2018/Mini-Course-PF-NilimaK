@@ -1,4 +1,3 @@
-import React from "react";
 
 // Option component for a single radio button
 function Option({ optionText, selectedOption, onSelect }) {

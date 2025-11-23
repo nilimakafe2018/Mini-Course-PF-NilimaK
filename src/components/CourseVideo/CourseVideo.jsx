@@ -1,23 +1,17 @@
 import Button from "../Button/Button"; // importing my child component 
-import YouTube from "react-youtube";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import QuizQuestion1 from "../QuizQuestions/QuizQuestion1";
 import QuizQuestion2 from "../QuizQuestions/QuizQuestion2";
 import QuizQuestion3 from "../QuizQuestions/QuizQuestion3";
 import QuizQuestion4 from "../QuizQuestions/QuizQuestion4";
 import QuizQuestion5 from "../QuizQuestions/QuizQuestion5";
 import QuizQuestion6 from "../QuizQuestions/QuizQuestion6";
-import CertificateCreator from "../Certificate/CertificateCreator";
-import CertificatePreview from "../Certificate/CertificatePreview";
 import "../Certificate/certificate.css";
 import ShowResult from "./ShowResult";
-import ReDo from "./ReDo";
 import Login from "./Login";
 import Video from "./Video";
 
 function CourseVideo() {
-  const navigate = useNavigate();
 
   const [changePages, setChangePages] = useState(0);
 
@@ -26,7 +20,6 @@ function CourseVideo() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [flagLoginDone, setFlagLoginDone] = useState(false);
-  const [flagVideoDone, setFlagVideoDone] = useState(false);
   const [flagQuiz1Done, setFlagQuiz1Done] = useState(false);
   const [flagQuiz2Done, setFlagQuiz2Done] = useState(false);
   const [flagQuiz3Done, setFlagQuiz3Done] = useState(false);
@@ -46,26 +39,31 @@ function CourseVideo() {
     setFlagQuiz1Correct(correctFlag);
     setErrorMessage(null);
   }
+
   function quiz2ChoiceSelected(correctFlag) {
     setFlagQuiz2Done(true);
     setFlagQuiz2Correct(correctFlag);
     setErrorMessage(null);
   }
+
   function quiz3ChoiceSelected(correctFlag) {
     setFlagQuiz3Done(true);
     setFlagQuiz3Correct(correctFlag);
     setErrorMessage(null);
   }
+
   function quiz4ChoiceSelected(correctFlag) {
     setFlagQuiz4Done(true);
     setFlagQuiz4Correct(correctFlag);
     setErrorMessage(null);
   }
+
   function quiz5ChoiceSelected(correctFlag) {
     setFlagQuiz5Done(true);
     setFlagQuiz5Correct(correctFlag);
     setErrorMessage(null);
   }
+
   function quiz6ChoiceSelected(correctFlag) {
     setFlagQuiz6Done(true);
     setFlagQuiz6Correct(correctFlag);
@@ -76,14 +74,13 @@ function CourseVideo() {
     // handle next click on login
     if (changePages === 0) {
       if (!window.fullname || !window.email) {
-        window.loginSetError("Please enter your name and email.");
+        window.loginSetError("Please enter your name and email!");
         return;
       }
       setChangePages(1);
       return;
 
     };
-
 
     // handle next click on video
     if (changePages === 1) {
@@ -202,8 +199,6 @@ function CourseVideo() {
         return;
       }
     }
-
-
   };
 
   return (
