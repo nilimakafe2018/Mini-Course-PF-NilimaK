@@ -3,7 +3,6 @@ import Option from "./Option";
 
 function QuizQuestion3({ choiceSelected }) {
   const [selectedOption, setSelectedOption] = useState("");
-  const [error, setError] = useState("");
 
   const question = "In the report page, what does copy-paste-events section does?";
   const options = [
@@ -40,8 +39,6 @@ function QuizQuestion3({ choiceSelected }) {
           />
         ))}
       </div>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
 
     </div>
   );

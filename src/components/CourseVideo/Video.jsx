@@ -1,4 +1,3 @@
-import React from "react";
 import YouTube from "react-youtube";
 
 function Video() {
@@ -32,6 +31,7 @@ function Video() {
       >
         <h2>Course Introduction Video</h2>
         <p>Please watch the video completely before clicking Next.</p>
+        {/* embedding youtube video */}
         <YouTube videoId="GC_bSiYrfRQ" opts={videoOptions} />
       </div>
     </div>

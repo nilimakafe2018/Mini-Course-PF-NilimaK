@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import CertificatePreview from "./CertificatePreview";
 
-
 function CertificateCreator() {
+  //Storing user's name, chosen color for certificate, extra custon text
   const [name, setName] = useState("");
   const [color, setColor] = useState("#4a89f0ff");
   const [customItems, setCustomItems] = useState([]);
   const [newItem, setNewItem] = useState("");
 
-  // Add custom content
+  //Adding new custom text item to the list
   const addItem = () => {
-    if (!newItem) return;
+    if (!newItem) return; 
     setCustomItems([...customItems, newItem]);
     setNewItem("");
   };
 
-  // Edit custom content
+  //Editing an existing custom text item
   const editItem = (index, value) => {
-    const updated = [...customItems];
+    const updated = [...customItems]; 
     updated[index] = value;
-    setCustomItems(updated);
+    setCustomItems(updated); 
   };
 
-  // Delete custom content
+  //Deleteing a custom item by removing it from the array
   const deleteItem = (index) => {
     setCustomItems(customItems.filter((_, i) => i !== index));
   };
@@ -53,7 +53,7 @@ function CertificateCreator() {
         />
       </div>
 
-      {/* Add custom items */}
+      {/* Adding a custom text field */}
       <div>
         <input
           type="text"
@@ -64,7 +64,7 @@ function CertificateCreator() {
         <button onClick={addItem}>Add</button>
       </div>
 
-      {/* List of editable items */}
+      {/* List of all added custom items with edit + delete buttons */}
       <ul>
         {customItems.map((item, index) => (
           <li key={index}>
@@ -72,12 +72,13 @@ function CertificateCreator() {
               value={item}
               onChange={(e) => editItem(index, e.target.value)}
             />
+            {/* Removing items */}
             <button onClick={() => deleteItem(index)}>Delete</button>
           </li>
         ))}
       </ul>
 
-      {/* Live Preview */}
+      {/* Live certificate Preview */}
       <CertificatePreview
         name={name}
         color={color}

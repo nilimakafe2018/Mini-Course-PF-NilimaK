@@ -5,7 +5,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  //store values globally so CourseVideo can check them
+  // store values globally so CourseVideo can check them
   window.fullname = fullname;
   window.email = email;
 
@@ -31,6 +31,7 @@ function Login() {
           gap: "10px",
         }}
       >
+        {/* input for full name */}
         <input
           type="text"
           placeholder="Enter your full name"
@@ -39,6 +40,7 @@ function Login() {
           style={{ width: "350px", padding: "10px" }}
         />
 
+        {/* input for email */}
         <input
           type="email"
           placeholder="Enter your email"

@@ -1,3 +1,8 @@
+// Reusable Button component but used only once
+// Accepts two props: 
+//  1.text: the label displayed on the button
+//  2.onClick: callback function to run when the button is clicked
+
 function Button({text, onClick}){
     return(
         <button
