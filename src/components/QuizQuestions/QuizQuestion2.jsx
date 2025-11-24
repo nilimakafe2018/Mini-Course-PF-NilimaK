@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Option from "./Option";
 
 function QuizQuestion2({choiceSelected}) {
-  const navigate = useNavigate();
+  // stores which option is selected
   const [selectedOption, setSelectedOption] = useState("");
-  const [error, setError] = useState("");
 
   const question = "In the report page of Process Feedback, when you want to view your detailed writing process, which option should you choose?";
   const options = [
@@ -16,13 +14,14 @@ function QuizQuestion2({choiceSelected}) {
   ];
   const correctAnswer = "Full Report";
 
+  //called when option is selected
   function handleSelectionChange(selectedChoice) {
-    setSelectedOption(selectedChoice);
+    setSelectedOption(selectedChoice); //update selected option in state
     if (selectedChoice == correctAnswer) {
-      choiceSelected(true)
+      choiceSelected(true)  //notify parent that the answer is correct
     }
     else {
-      choiceSelected(false);
+      choiceSelected(false);  //notify parent that the answer is wrong
     }
   }
 
@@ -31,18 +30,17 @@ function QuizQuestion2({choiceSelected}) {
       <h2>Quiz Question 2</h2>
       <p>{question}</p>
 
+      {/* Render all options using Option child component */}
       <div>
         {options.map((option) => (
           <Option
             key={option}
             optionText={option}
-            selectedOption={selectedOption}
-            onSelect={handleSelectionChange}
+            selectedOption={selectedOption} //pass current selected option
+            onSelect={handleSelectionChange} //callback when user selects an option
           />
         ))}
       </div>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
 
     </div>
   );

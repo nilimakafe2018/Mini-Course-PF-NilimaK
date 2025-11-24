@@ -1,4 +1,4 @@
-import Button from "../Button/Button"; // importing my child component 
+import Button from "../Button/Button"; //importing my child component 
 import React, { useState } from "react";
 import QuizQuestion1 from "../QuizQuestions/QuizQuestion1";
 import QuizQuestion2 from "../QuizQuestions/QuizQuestion2";
@@ -13,12 +13,14 @@ import Video from "./Video";
 
 function CourseVideo() {
 
+  //tracking which page is currently active
   const [changePages, setChangePages] = useState(0);
 
   const [score, setScore] = useState(0);
 
   const [errorMessage, setErrorMessage] = useState(null);
 
+  //tracking whether each quiz of login step is completed
   const [flagLoginDone, setFlagLoginDone] = useState(false);
   const [flagQuiz1Done, setFlagQuiz1Done] = useState(false);
   const [flagQuiz2Done, setFlagQuiz2Done] = useState(false);
@@ -27,6 +29,7 @@ function CourseVideo() {
   const [flagQuiz5Done, setFlagQuiz5Done] = useState(false);
   const [flagQuiz6Done, setFlagQuiz6Done] = useState(false);
 
+  //tracking whether each quiz answer is correct
   const [flagQuiz1Correct, setFlagQuiz1Correct] = useState(false);
   const [flagQuiz2Correct, setFlagQuiz2Correct] = useState(false);
   const [flagQuiz3Correct, setFlagQuiz3Correct] = useState(false);
@@ -34,6 +37,7 @@ function CourseVideo() {
   const [flagQuiz5Correct, setFlagQuiz5Correct] = useState(false);
   const [flagQuiz6Correct, setFlagQuiz6Correct] = useState(false);
 
+  //function callback called by quiz when user select answer
   function quiz1ChoiceSelected(correctFlag) {
     setFlagQuiz1Done(true);
     setFlagQuiz1Correct(correctFlag);
@@ -70,7 +74,9 @@ function CourseVideo() {
     setErrorMessage(null);
   }
 
+  //handles click on the next button
   const handleNext = () => {
+
     // handle next click on login
     if (changePages === 0) {
       if (!window.fullname || !window.email) {
@@ -84,11 +90,11 @@ function CourseVideo() {
 
     // handle next click on video
     if (changePages === 1) {
-      setChangePages(2);
+      setChangePages(2); //going to first quiz question
       return;
     }
 
-    // handle next click on quiz 1
+    // quiz 1, check id the user has answered, if correct increase score and go to next page
     if (changePages === 2) {
 
       if (!flagQuiz1Done) {
@@ -100,13 +106,13 @@ function CourseVideo() {
         if (flagQuiz1Correct) {
           setScore(score + 1);
         }
-    
+
         setChangePages(3);
         return;
       }
     }
 
-    // handle next click on quiz 2
+    // click on quiz 2
     if (changePages === 3) {
 
       if (!flagQuiz2Done) {
@@ -118,13 +124,13 @@ function CourseVideo() {
         if (flagQuiz2Correct) {
           setScore(score + 1);
         }
-    
+
         setChangePages(4);
         return;
       }
     }
 
-    //handle next click quiz 3
+    // click on quiz 3
     if (changePages === 4) {
 
       if (!flagQuiz3Done) {
@@ -137,13 +143,13 @@ function CourseVideo() {
         if (flagQuiz3Correct) {
           setScore(score + 1);
         }
-        
+
         setChangePages(5);
         return;
       }
     }
 
-    //handle next click quiz 4
+    // click on quiz 4
     if (changePages === 5) {
 
       if (!flagQuiz4Done) {
@@ -156,13 +162,13 @@ function CourseVideo() {
         if (flagQuiz4Correct) {
           setScore(score + 1);
         }
-      
+
         setChangePages(6);
         return;
       }
     }
 
-    //handle next click quiz 5
+    // click on quiz 5
     if (changePages === 6) {
 
       if (!flagQuiz5Done) {
@@ -175,13 +181,13 @@ function CourseVideo() {
         if (flagQuiz5Correct) {
           setScore(score + 1);
         }
-        
+
         setChangePages(7);
         return;
       }
     }
 
-    //handle next click quiz 6
+    // click on quiz 6
     if (changePages === 7) {
 
       if (!flagQuiz6Done) {
@@ -194,7 +200,7 @@ function CourseVideo() {
         if (flagQuiz6Correct) {
           setScore(score + 1);
         }
-        
+
         setChangePages(8);
         return;
       }
@@ -215,6 +221,7 @@ function CourseVideo() {
           }}
         >
 
+          {/* conditional rendering of each component */}
           {changePages === 0 &&
             <div><Login /></div>
           }

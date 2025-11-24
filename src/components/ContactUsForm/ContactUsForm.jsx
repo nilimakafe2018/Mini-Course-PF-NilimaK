@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import "./ContactUsForm.css";
 
 function ContactUsForm() {
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
 
+    //handle form submission function
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -41,6 +43,7 @@ function ContactUsForm() {
             {error && <p className="error-msg">{error}</p>}
             {submitted && <p className="success-msg">Message sent successfully.</p>}
 
+            {/* contact form */}
             <form onSubmit={handleSubmit} className="contact-form">
                 <label>Full name:
                     <input type="text"
@@ -66,7 +69,6 @@ function ContactUsForm() {
                 <button type="submit">Send Message</button>
 
             </form>
-
         </div>
     )
 }

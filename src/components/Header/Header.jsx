@@ -3,11 +3,12 @@ import logo from "../../assets/PFLogo.png";
 import "./Header.css";
 
 function Header() {
-  const navigate = useNavigate(); //initilaize navigation
+  // Initialize navigation
+  const navigate = useNavigate();
 
   //click handler to go to home page
   const handleLogoClick = () => {
-    navigate("/"); //navigate to home route
+    navigate("/");
   }
 
   return (
@@ -15,7 +16,7 @@ function Header() {
       {/*PF logo on the left side in navbar*/}
       <div className="header-left">
         <img src={logo} alt="Process Feedback Logo" className="logo"
-          onClick={handleLogoClick} //added click handler
+          onClick={handleLogoClick} //when click on logo, it navigates home page
           style={{ cursor: "pointer" }} //making to look clickable
         />
 

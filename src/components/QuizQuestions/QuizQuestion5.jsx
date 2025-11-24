@@ -3,7 +3,6 @@ import Option from "./Option";
 
 function QuizQuestion5({ choiceSelected }) {
   const [selectedOption, setSelectedOption] = useState("");
-  const [error, setError] = useState("");
 
   const question = "On the report page, in the text-added and text-removed bubble chart, what does the red bubble represent??";
   const options = [
@@ -41,8 +40,6 @@ function QuizQuestion5({ choiceSelected }) {
           />
         ))}
       </div>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
 
     </div>
   );

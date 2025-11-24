@@ -3,7 +3,6 @@ import Option from "./Option";
 
 function QuizQuestion6({ choiceSelected }) {
   const [selectedOption, setSelectedOption] = useState("");
-  const [error, setError] = useState("");
 
   const question = "To share your writing report with someone, you can simply click the ‘Copy Report Link’ option in the sidebar, or copy the link directly from the URL.";
   const options = [
@@ -39,8 +38,6 @@ function QuizQuestion6({ choiceSelected }) {
           />
         ))}
       </div>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
 
     </div>
   );

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Option from "./Option";
 
 function QuizQuestion1({ choiceSelected }) {
+  //state to store which option the user selected
   const [selectedOption, setSelectedOption] = useState("");
-  const [error, setError] = useState("");
 
+  //quiz questions and options
   const question = "What is the main purpose of the Process Feedback mini-course?";
   const options = [
     "To learn JavaScript React",
@@ -14,13 +15,14 @@ function QuizQuestion1({ choiceSelected }) {
   ];
   const correctAnswer = "To get familiar with Process Feedback application";
 
+  //called when option is selected
   function handleSelectionChange(selectedChoice) {
-    setSelectedOption(selectedChoice);
+    setSelectedOption(selectedChoice); //update selected option in state
     if (selectedChoice == correctAnswer) {
-      choiceSelected(true)
+      choiceSelected(true) //notify parent that the answer is correct
     }
     else {
-      choiceSelected(false);
+      choiceSelected(false); //notify parent that the answer is wrong
     }
   }
 
@@ -33,15 +35,13 @@ function QuizQuestion1({ choiceSelected }) {
       <div>
         {options.map((option) => (
           <Option
-            key={option}
+            key={option} 
             optionText={option}
-            selectedOption={selectedOption}
-            onSelect={handleSelectionChange}
+            selectedOption={selectedOption} //pass current selected option
+            onSelect={handleSelectionChange} //callback when user selects an option
           />
         ))}
       </div>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
 
     </div>
   );

@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 function ReDo() {
   const navigate = useNavigate();
 
+  // function to restart the course by navigating to the home page
   const handleRestart = () => {
-    navigate("/"); // edirects user to the home page
+    // redirect to the home page
+    navigate("/");
   };
 
   return (

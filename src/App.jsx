@@ -9,7 +9,7 @@ import "./App.css";
 function Home() {
   const navigate = useNavigate();
 
-
+  //navigate to course page when user click on start course button
   const handleStartCourse = () => {
     navigate("/course")
 
@@ -43,10 +43,10 @@ function About() {
 }
 
 function App() {
-  //State to store answers
+  //State to store answers from quizzes
   const [answers, setAnswers] = useState({});
 
-  //Save answer function passed to QuizQuestion1
+  //function to save answers. 
   const saveAnswer = (question, isCorrect) => {
     //Update the answers state without console.log
     setAnswers((prev) => ({ ...prev, [question]: isCorrect }));
