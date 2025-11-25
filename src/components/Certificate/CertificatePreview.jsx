@@ -1,4 +1,4 @@
-import "./certificate.css";
+import "./Certificate.css";
 
 // Called from CertificateCreator
 // Receives: name, color and custom text items
