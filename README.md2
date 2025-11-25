@@ -1,4 +1,4 @@
-Manual testing efforts:
+My Manual testing efforts:
 I manually tested my project during development and make sure everything worked as expected. 
 I checked all pages, for example, the Home page, About Process Feedback, and the Contact Us page, and all opened correctly.
 I tested the wrong and missing route parameters to see if the app handles properly.
@@ -7,7 +7,7 @@ I tested conditional rendering by using different scenarios.
 I watched how the UI changed when the state updated.
 I tested all the buttons, link and reusable components to make sure they worked as I expected.
 
-Debugging efforts:
+My Debugging efforts:
 I reviewed console errors and warnings.
 I checked output using console.log statements and removed them after verifying the results.
 I checked the component tree.
