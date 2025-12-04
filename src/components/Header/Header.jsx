@@ -1,16 +1,16 @@
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom"; //hook for internal navigation
 import logo from "../../assets/PFLogo.png";
 import "./Header.css";
 
 function Header() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //navigating to internal pages
 
-  // Click handler for logo → home page
+  // navigate to homepage
   const handleLogoClick = () => {
     navigate("/");
   };
 
-  // Open external PF about page
+  //open about pf page
   const handleAboutClick = () => {
     window.open("https://www.processfeedback.org/about/", "_blank");
   };

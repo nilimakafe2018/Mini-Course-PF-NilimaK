@@ -5,7 +5,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  // store values globally so CourseVideo can check them
+  //store values globally so CourseVideo can check them
   window.fullname = fullname;
   window.email = email;
 

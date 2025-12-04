@@ -3,13 +3,14 @@ import ReDo from "./ReDo";
 
 const maxScore = 3;
 
+//Showresult receives score as a prop
 function ShowResult({ score }) {
 
     // conditional rendering. 
     // if the score is greater or equal to maxScore, show certificate. If not show redo component to restart the course
     return (
         score >= maxScore ? (
-            <CertificateCreator />
+            <CertificateCreator /> 
         ) : (
             <ReDo /> //Rendering the ReDo component with the start again button
         )

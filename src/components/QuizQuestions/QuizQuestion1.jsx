@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Option from "./Option";
+import Option from "./Option"; //option component that used to display each answer choice
 
+//receving callback function choiceSelected from its parent
 function QuizQuestion1({ choiceSelected }) {
   //state to store which option the user selected
   const [selectedOption, setSelectedOption] = useState("");
@@ -31,14 +32,14 @@ function QuizQuestion1({ choiceSelected }) {
       <h2>Quiz Question 1</h2>
       <p>{question}</p>
 
-      {/* Render all options using Option child component */}
+      {/* looping all the options array adn render all options using Option child component */}
       <div>
         {options.map((option) => (
           <Option
             key={option} 
             optionText={option}
             selectedOption={selectedOption} //pass current selected option
-            onSelect={handleSelectionChange} //callback when user selects an option
+            onSelect={handleSelectionChange} //callback when user select an option
           />
         ))}
       </div>
