@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import "./ContactUsForm.css";
 
 function ContactUsForm() {
-
-    const [name, setName] = useState("");
+    //storing name, email and message enter by user and tracking form successfully submitted or not 
+    const [name, setName] = useState(""); 
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
-    const [submitted, setSubmitted] = useState(false);
+    const [submitted, setSubmitted] = useState(false); 
     const [error, setError] = useState("");
 
     //handle form submission function
@@ -18,7 +18,7 @@ function ContactUsForm() {
             return;
         }
 
-        //successfull form submission
+        //successfull form submission and resets the form fields
         setSubmitted(true);
         setError("");
         setName("");
@@ -40,6 +40,7 @@ function ContactUsForm() {
             <p>Please provide your full name, email, and message if you have any questions, concerns, comments, or feedback in the from below. We will get back to you as soon as possible.</p>
             <h3>Double check your email address before submitting the form, because that is where we will reply you.</h3>
 
+            {/*conditional rendering that shows the error and success message if submittes is true*/}
             {error && <p className="error-msg">{error}</p>}
             {submitted && <p className="success-msg">Message sent successfully.</p>}
 

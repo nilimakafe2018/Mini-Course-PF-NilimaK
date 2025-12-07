@@ -1,0 +1,58 @@
+[
+   {
+       "question": "What is the main purpose of the Process Feedback mini-course?",
+       "options": [
+           "To learn JavaScript React",
+           "To get familiar with Process Feedback application",
+           "To learn CSS Grid and Flexbox",
+           "To submit assignments automatically"
+       ],
+       "correctAnswer": "To get familiar with Process Feedback application"
+   },
+   {
+       "question": "In the report page of Process Feedback, when you want to view your detailed writing process, which option should you choose?",
+       "options": [
+           "Quick Report",
+           "Options",
+           "Next",
+           "Full Report"
+       ],
+       "correctAnswer": "Full Report"
+   },
+   {
+       "question": "In the report page, what does copy-paste-events section does?",
+       "options": [
+           "It shows how many times I copy-pasted during my writing journey",
+           "It displays the number of comments the instructor left on my final submission.",
+           "It shows how long I spent writing each paragraph of the assignment.",
+           "It tracks the number of grammar and spelling mistakes in my draft."
+       ],
+       "correctAnswer": "It shows how many times I copy-pasted during my writing journey"
+   },
+   {
+       "question": "None of the charts on the report page are interactive.",
+       "options": [
+           "True",
+           "False"
+       ],
+       "correctAnswer": "False"
+   },
+   {
+       "question": "On the report page, in the text-added and text-removed bubble chart, what does the red bubble represent??",
+       "options": [
+           "Text removed",
+           "Text modified",
+           "No change",
+           "Text added"
+       ],
+       "correctAnswer": "Text removed"
+   },
+   {
+       "question": "To share your writing report with someone, you can simply click the ‘Copy Report Link’ option in the sidebar, or copy the link directly from the URL.",
+       "options": [
+           "True",
+           "False"
+       ],
+       "correctAnswer": "True"
+   }
+]

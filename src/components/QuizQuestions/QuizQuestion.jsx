@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-import Option from "./Option";
+import Option from "./Option"; //option component that used to display each answer choice
+// import quizData from "./quizData.json";
 
-function QuizQuestion1({ choiceSelected }) {
+//receving callback function choiceSelected and data from its parent
+function QuizQuestion({ data, choiceSelected }) {
   //state to store which option the user selected
   const [selectedOption, setSelectedOption] = useState("");
 
-  //quiz questions and options
-  const question = "What is the main purpose of the Process Feedback mini-course?";
-  const options = [
-    "To learn JavaScript React",
-    "To get familiar with Process Feedback application",
-    "To learn CSS Grid and Flexbox",
-    "To submit assignments automatically"
-  ];
-  const correctAnswer = "To get familiar with Process Feedback application";
+  //destructing question, options and correctAnswer from the quiz data
+  const { question, options, correctAnswer } = data;
 
   //called when option is selected
   function handleSelectionChange(selectedChoice) {
@@ -28,23 +23,21 @@ function QuizQuestion1({ choiceSelected }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px", margin: "50px" }}>
-      <h2>Quiz Question 1</h2>
+      <h2>Quiz Question</h2>
       <p>{question}</p>
 
-      {/* Render all options using Option child component */}
+      {/* looping all the options array adn render all options using Option child component */}
       <div>
         {options.map((option) => (
           <Option
             key={option} 
             optionText={option}
             selectedOption={selectedOption} //pass current selected option
-            onSelect={handleSelectionChange} //callback when user selects an option
+            onSelect={handleSelectionChange} //callback when user select an option
           />
         ))}
       </div>
-
     </div>
   );
 }
-
-export default QuizQuestion1;
+export default QuizQuestion;

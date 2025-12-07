@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import "./App.css";
 
 function Home() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   //navigate to course page when user click on start course button
   const handleStartCourse = () => {
@@ -48,7 +48,7 @@ function App() {
 
   //function to save answers. 
   const saveAnswer = (question, isCorrect) => {
-    //Update the answers state without console.log
+    //Update the answers object without clearing previous data
     setAnswers((prev) => ({ ...prev, [question]: isCorrect }));
   };
 
