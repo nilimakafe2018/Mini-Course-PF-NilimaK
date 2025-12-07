@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Option from "./Option"; //option component that used to display each answer choice
-// import quizData from "./quizData.json";
 
 //receving callback function choiceSelected and data from its parent
 function QuizQuestion({ data, choiceSelected }) {

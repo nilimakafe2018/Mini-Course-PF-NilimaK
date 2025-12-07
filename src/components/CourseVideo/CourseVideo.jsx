@@ -276,5 +276,4 @@ function CourseVideo() {
     </>
   );
 }
-
 export default CourseVideo;
