@@ -1,13 +1,50 @@
 import React, { useState } from "react";
 
-function Login() {
+
+function Login({onLoginSuccess}) {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [institution, setInstitution] = useState("");
 
-  //store values globally so CourseVideo can check them
-  window.fullname = fullname;
-  window.email = email;
+  const handleStartCourse = async() => {
+    setError("");
+
+
+    if (!fullname || !email || !institution) {
+      setError("Please enter your name, email, and institution!");
+      return;
+    }
+
+    try{
+      const response= await fetch("http://localhost:8080/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name:fullname, email:email, institution:institution }),
+      });
+
+      // if (!response.ok) {
+      //   throw new Error("Sorry, failed to create user. Please try again.");
+      // }
+
+
+      const data= await response.json();
+
+      localStorage.setItem("userId", data.id);
+      localStorage.setItem("fullname", data.name);
+      localStorage.setItem("institution", data.institution);
+
+      setFullName("");
+      setEmail("");
+      setInstitution("");
+      onLoginSuccess();
+
+     } catch (err) {
+       setError("Sorry, something went wrong while creating the user, please try again.");
+     }
+  };
 
   return (
     <div
@@ -49,10 +86,22 @@ function Login() {
           style={{ width: "350px", padding: "10px" }}
         />
 
-        {error && <p style={{color:"red"}}>{error}</p>}
+        {/* input for institution */}
+        <input
+          type="text"
+          placeholder="Enter your institution name"
+          value={institution}
+          onChange={(e) => setInstitution(e.target.value)}
+          style={{ width: "350px", padding: "10px" }}
+        />
 
-        {/* showing error to parent by attaching it */}
-        {(window.loginSetError = setError)}
+        {error && <p style={{color:"red"}}>{error}</p>}
+        {/* {success && <p style={{color:"green"}}>{success}</p>} */}
+
+        <button onClick={handleStartCourse} style={{ padding: "10px 20px", backgroundColor:"#85f183",  border:"none" }}>
+          Next
+        </button>
+       
 
       </div>
     </div>

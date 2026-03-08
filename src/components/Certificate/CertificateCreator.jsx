@@ -3,7 +3,7 @@ import CertificatePreview from "./CertificatePreview";
 
 function CertificateCreator() {
   //Storing user's name, chosen color for certificate, extra custon text
-  const [name, setName] = useState("");
+  const [name, setName] = useState(localStorage.getItem("fullname")||"");
   const [color, setColor] = useState("#4a89f0ff");
   const [customItems, setCustomItems] = useState([]);
 
@@ -37,14 +37,15 @@ function CertificateCreator() {
         Congratulations, You passed!
         <span className="clap-emoji">👏</span>
       </h2>
-      <h4>Create Your Certificate! Please don't forget to take a screenshot of your certificate and send it to your professor.</h4>
+      <h4>Create your custom certificate! Please don't forget to download your certificate.</h4>
 
       <div className="input-group">
         <input
           type="text"
-          placeholder="Enter full name"
+          // placeholder="Enter full name"
           value={name}
-          onChange={(e) => setName(e.target.value)} //updatng name as user type
+          readOnly 
+          //onChange={(e) => setName(e.target.value)} //updatng name as user type
         />
       </div>
 

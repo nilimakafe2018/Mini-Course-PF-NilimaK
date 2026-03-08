@@ -35,17 +35,6 @@ function CourseVideo() {
   //handles click on the next button, function to controls navigation through the pages
   const handleNext = () => {
 
-    //handle next click on login
-    if (changePages === 0) {
-      if (!window.fullname || !window.email) {
-        window.loginSetError("Please enter your name and email!");
-        return;
-      }
-      setChangePages(1);
-      return;
-
-    };
-
     // handle next click on video 
     if (changePages === 1) {
       setChangePages(2); //going to first quiz question
@@ -89,7 +78,7 @@ function CourseVideo() {
 
           {/* conditional rendering of each component and displaying the right component for the current page*/}
           {changePages === 0 &&
-            <div><Login /></div>
+            <div><Login onLoginSuccess={() => setChangePages(1)}/></div>
           }
 
           {changePages === 1 &&
@@ -105,7 +94,7 @@ function CourseVideo() {
             <div><ShowResult score={score} /></div>
           }
 
-          {changePages !== 8 && (
+          {changePages !== 8 && changePages !== 0 && (
             <>
               {errorMessage &&
                 <div style={{ color: "red" }}>
