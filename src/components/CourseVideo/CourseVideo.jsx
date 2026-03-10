@@ -95,8 +95,17 @@ function CourseVideo() {
             <div><QuizQuestion data={quizData[changePages - 2]} choiceSelected={quizScoreObtained} /></div>
           }
 
-          {changePages === quizData.length + 2 &&
-            <div><ShowResult score={score} /></div>
+          {changePages === quizData.length + 2 && (
+            <div>
+              <ShowResult
+                score={score}
+                restartCourse={() => {
+                  setScore(0);
+                  setChangePages(1);}}
+              />
+            </div>
+          )
+            
           }
 
           {changePages === quizData.length + 3 &&
