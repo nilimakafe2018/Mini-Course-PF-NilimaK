@@ -6,11 +6,11 @@ import "../Certificate/Certificate.css";
 import ShowResult from "./ShowResult";
 import Login from "./Login";
 import Video from "./Video";
+import CertificateCreator from "../Certificate/CertificateCreator";
 
 //my main parent component which controls the entire course flow.
 function CourseVideo() {
 
-  //tracking which page is currently active. 0=login, 1=video, 2-7=quiz questions and 8=result
   const [changePages, setChangePages] = useState(0);
 
   //tracking user score and increase by 1 for every correct quiz answer. 
@@ -59,7 +59,6 @@ function CourseVideo() {
         return;
       }
     }
-
   };
 
   return (
@@ -78,7 +77,13 @@ function CourseVideo() {
 
           {/* conditional rendering of each component and displaying the right component for the current page*/}
           {changePages === 0 &&
-            <div><Login onLoginSuccess={() => setChangePages(1)}/></div>
+            <div><Login onLoginSuccess={(hasCertificate) =>{
+              if (hasCertificate) {
+                setChangePages(quizData.length+3); //go directly to certificate page
+              } else {setChangePages(1); //go to video page
+              }
+            }}
+            /> </div>
           }
 
           {changePages === 1 &&
@@ -94,7 +99,11 @@ function CourseVideo() {
             <div><ShowResult score={score} /></div>
           }
 
-          {changePages !== 8 && changePages !== 0 && (
+          {changePages === quizData.length + 3 &&
+            <div><CertificateCreator /></div>
+          }
+
+          {changePages !== 8 && changePages !== 0 && changePages !== quizData.length + 3 && (
             <>
               {errorMessage &&
                 <div style={{ color: "red" }}>

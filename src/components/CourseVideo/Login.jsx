@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 function Login({onLoginSuccess}) {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -9,7 +8,6 @@ function Login({onLoginSuccess}) {
 
   const handleStartCourse = async() => {
     setError("");
-
 
     if (!fullname || !email || !institution) {
       setError("Please enter your name, email, and institution!");
@@ -25,10 +23,9 @@ function Login({onLoginSuccess}) {
         body: JSON.stringify({ name:fullname, email:email, institution:institution }),
       });
 
-      // if (!response.ok) {
-      //   throw new Error("Sorry, failed to create user. Please try again.");
-      // }
-
+       if (!response.ok) {
+         throw new Error("Sorry, failed to create user. Please try again.");
+       }
 
       const data= await response.json();
 
@@ -36,10 +33,19 @@ function Login({onLoginSuccess}) {
       localStorage.setItem("fullname", data.name);
       localStorage.setItem("institution", data.institution);
 
+      //checking if this user already has a certificate
+      const certResponse = await fetch(`http://localhost:8080/api/certificates/user/${data.id}`);
+
       setFullName("");
       setEmail("");
       setInstitution("");
       onLoginSuccess();
+
+      if(certResponse.ok) {
+        onLoginSuccess(true); //existing user with certificate
+      } else{
+        onLoginSuccess(false); //new user or existing user without certificate
+      }
 
      } catch (err) {
        setError("Sorry, something went wrong while creating the user, please try again.");
@@ -102,7 +108,6 @@ function Login({onLoginSuccess}) {
           Next
         </button>
        
-
       </div>
     </div>
   );
