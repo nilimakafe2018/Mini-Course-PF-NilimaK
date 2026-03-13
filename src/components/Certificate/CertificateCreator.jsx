@@ -96,6 +96,7 @@ function CertificateCreator() {
     const fullname= localStorage.getItem("fullname");
     const institution= localStorage.getItem("institution");
     const email= localStorage.getItem("email");
+
   try{
     const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
       method: "PUT",
@@ -112,6 +113,31 @@ function CertificateCreator() {
 
    } catch(err){ 
       alert("Sorry, something went wrong while updating the user information, please try again.");      
+    }
+  };
+
+  //deleting current user
+  const deleteUser = async() =>{
+    const userId= localStorage.getItem("userId");
+
+  try{
+    const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Sorry, failed to delete user. Please try again.");
+      return;
+    }
+
+    localStorage.removeItem("userId");
+    localStorage.removeItem("fullname");
+    localStorage.removeItem("institution");
+    localStorage.removeItem("email");
+
+    alert("User deleted successfully.");
+  
+   } catch(err){
+      alert("Sorry, something went wrong while deleting the user, please try again.");      
     }
   };
 
@@ -166,6 +192,16 @@ function CertificateCreator() {
       <button onClick={handleDownload} style={{ marginTop: "20px" }}>
         {certificateExists ? "Download Existing Certificate" : "Create and Download Certificate"}
       </button>
+
+      <div style={{marginTop:"15px"}}>
+        <button onClick={updateUser} style={{ marginRight: "10px" }}>
+          Update User Information
+        </button>
+
+        <button onClick={deleteUser}>
+          Delete User
+        </button>
+      </div>
     </div>
   );
 }
