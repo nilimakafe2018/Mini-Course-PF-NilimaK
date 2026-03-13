@@ -96,7 +96,25 @@ function CertificateCreator() {
     const fullname= localStorage.getItem("fullname");
     const institution= localStorage.getItem("institution");
     const email= localStorage.getItem("email");
-  }
+
+  try{
+    const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name:fullname, email:email, institution:institution }),
+    });
+    if (!response.ok) {
+      throw new Error("Sorry, failed to update user. Please try again.");
+      return;
+    }
+    alert("User information updated successfully.");
+
+   } catch(err){ 
+      alert("Sorry, something went wrong while updating the user information, please try again.");      
+    }
+  };
 
   return (
     <div className="certificate-container">
