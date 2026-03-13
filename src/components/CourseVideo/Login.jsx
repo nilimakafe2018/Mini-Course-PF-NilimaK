@@ -32,6 +32,7 @@ function Login({onLoginSuccess}) {
       localStorage.setItem("userId", data.id);
       localStorage.setItem("fullname", data.name);
       localStorage.setItem("institution", data.institution);
+      localStorage.setItem("email", data.email);
 
       //checking if this user already has a certificate
       const certResponse = await fetch(`http://localhost:8080/api/certificates/user/${data.id}`);

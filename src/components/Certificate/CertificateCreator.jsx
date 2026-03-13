@@ -90,6 +90,14 @@ function CertificateCreator() {
 
   };
 
+  //updating existing user data
+  const updateUser = async() =>{
+    const userId= localStorage.getItem("userId");
+    const fullname= localStorage.getItem("fullname");
+    const institution= localStorage.getItem("institution");
+    const email= localStorage.getItem("email");
+  }
+
   return (
     <div className="certificate-container">
       <h2>
@@ -125,9 +133,9 @@ function CertificateCreator() {
           placeholder="Add custom text"
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
-          // disabled={certificateExists}
+          
         />
-        <button onClick={addItem} disabled={certificateExists}>Add</button>
+        <button onClick={addItem}>Add</button>
       </div>
 
       {/* Live certificate Preview */}
