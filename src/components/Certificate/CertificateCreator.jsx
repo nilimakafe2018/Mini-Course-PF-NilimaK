@@ -96,7 +96,6 @@ function CertificateCreator() {
     const fullname= localStorage.getItem("fullname");
     const institution= localStorage.getItem("institution");
     const email= localStorage.getItem("email");
-
   try{
     const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
       method: "PUT",
