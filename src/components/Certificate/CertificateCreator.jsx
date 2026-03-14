@@ -5,10 +5,11 @@ import React, { useState, useEffect } from "react";
 function CertificateCreator() {
   //Storing user's name, chosen color for certificate, extra custon text
   const [name] = useState(localStorage.getItem("fullname") || "");
+  const [email] = useState(localStorage.getItem("email") || "");
   const [color, setColor] = useState("#4a89f0ff");
   const [customItems, setCustomItems] = useState([]);
   const [certificateExists, setCertificateExists] = useState(false);//state to check if certificate already exists 
-  
+  const [message, setMessage] = useState(""); //state to show success or error messages
 
   //useEffect to check if certificate already exists for the user when the component mounts
   useEffect(() => {
@@ -27,7 +28,7 @@ function CertificateCreator() {
         }
       }
     } catch (err) {
-      console.error("Error checking certificate:", err);
+      console.error("Error checking certificate");
     }
   };
 
@@ -48,6 +49,7 @@ function CertificateCreator() {
   //first checks if the certificate already exists for the user, if not it creates a new one
   const handleDownload = async () => {
     const userId = localStorage.getItem("userId"); //getting the userid stored in localstorage during registration
+    setMessage(""); //clearing any previous messages
 
     try {
       //first checking if the certificate already exists
@@ -60,20 +62,25 @@ function CertificateCreator() {
           { method: "POST", }
         );
 
-        //console.log("Certificate creation response:", response);
         //show error if certificate creation failed, i need to work more in this logic
         if (!response.ok) {
-          alert("Failed to create certificate. Please try again.");
+          setMessage("Failed to download certificate. Please try again.");
           return;
         }
         setCertificateExists(true); //updating state to true after creating certificate  
-      }else if (!response.ok) {
-        setCertificateExists(false);
+      }
+      else if (!response.ok) {
+        setMessage("Failed to download certificate. Please try again.");
         return;
       }
 
       //downloading certificate from the page
       const certificate = document.querySelector(".certificate");
+
+      if (!certificate) {
+        setMessage("Certificate preview not found.");
+        return;
+      }
 
       html2canvas(certificate).then((canvas) => {
         const link = document.createElement("a");
@@ -85,7 +92,7 @@ function CertificateCreator() {
     } 
     //showing error if there is an issue with fetching or creating certificate
     catch (err) {
-      alert("Sorry, something went wrong while creating the certificate, please try again.");
+      setMessage("Sorry, something went wrong while creating the certificate, please try again.");
     }
 
   };
@@ -96,6 +103,7 @@ function CertificateCreator() {
     const fullname= localStorage.getItem("fullname");
     const institution= localStorage.getItem("institution");
     const email= localStorage.getItem("email");
+    setMessage("");
 
   try{
     const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
@@ -106,26 +114,27 @@ function CertificateCreator() {
       body: JSON.stringify({ name:fullname, email:email, institution:institution }),
     });
     if (!response.ok) {
-      throw new Error("Sorry, failed to update user. Please try again.");
+      setMessage("Sorry, failed to update user. Please try again.");
       return;
     }
-    alert("User information updated successfully.");
+    setMessage("User information updated successfully.");
 
    } catch(err){ 
-      alert("Sorry, something went wrong while updating the user information, please try again.");      
+      setMessage("Sorry, something went wrong while updating the user information, please try again.");      
     }
   };
 
   //deleting current user
   const deleteUser = async() =>{
     const userId= localStorage.getItem("userId");
+    setMessage("");
 
   try{
     const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
       method: "DELETE",
     });
     if (!response.ok) {
-      throw new Error("Sorry, failed to delete user. Please try again.");
+      setMessage("Sorry, failed to delete user. Please try again.");
       return;
     }
 
@@ -134,10 +143,10 @@ function CertificateCreator() {
     localStorage.removeItem("institution");
     localStorage.removeItem("email");
 
-    alert("User deleted successfully.");
+    setMessage("User deleted successfully.");
   
    } catch(err){
-      alert("Sorry, something went wrong while deleting the user, please try again.");      
+      setMessage("Sorry, something went wrong while deleting the user, please try again.");      
     }
   };
 
@@ -152,10 +161,8 @@ function CertificateCreator() {
       <div className="input-group">
         <input
           type="text"
-          // placeholder="Enter full name"
           value={name}
           readOnly
-        //onChange={(e) => setName(e.target.value)} //updatng name as user type
         />
       </div>
 
@@ -185,6 +192,7 @@ function CertificateCreator() {
       {/* sending all info to certifcatePreview component to see live preview */}
       <CertificatePreview
         name={name}
+        email={email}
         color={color}
         customItems={customItems}
       />
@@ -195,13 +203,14 @@ function CertificateCreator() {
 
       <div style={{marginTop:"15px"}}>
         <button onClick={updateUser} style={{ marginRight: "10px" }}>
-          Update User Information
+          Update Certificate Information
         </button>
 
         <button onClick={deleteUser}>
           Delete User
         </button>
       </div>
+      {message && <p style={{ marginTop: "15px" }}>{message}</p>}
     </div>
   );
 }
