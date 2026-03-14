@@ -10,6 +10,7 @@ function CertificateCreator() {
   const [customItems, setCustomItems] = useState([]);
   const [certificateExists, setCertificateExists] = useState(false);//state to check if certificate already exists 
   const [message, setMessage] = useState(""); //state to show success or error messages
+  const [colorChanged, setColorChanged] = useState(false); //state to track if the user has changed the color, used to determine whether to show update button or not
 
   //useEffect to check if certificate already exists for the user when the component mounts
   useEffect(() => {
@@ -169,7 +170,10 @@ function CertificateCreator() {
         <input
           type="color"
           value={color}
-          onChange={(e) => setColor(e.target.value)}
+          onChange={(e) =>{
+            setColor(e.target.value);
+          setColorChanged(true);
+          }}
         />
       </div>
 
@@ -200,9 +204,9 @@ function CertificateCreator() {
 
       <div style={{marginTop:"15px"}}>
         <button onClick={updateCertificate} style={{ marginRight: "10px" }}
-        disabled={!certificateExists}
+        disabled={!certificateExists || !colorChanged}
         >
-          Update Certificate Information
+          Update Certificate Color
         </button>
 
         <button onClick={deleteUser}>
