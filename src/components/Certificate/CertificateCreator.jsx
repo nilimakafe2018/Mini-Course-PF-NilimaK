@@ -97,30 +97,28 @@ function CertificateCreator() {
 
   };
 
-  //updating existing user data
-  const updateUser = async() =>{
+  //updating existing certificate color
+  const updateCertificate = async() =>{
     const userId= localStorage.getItem("userId");
-    const fullname= localStorage.getItem("fullname");
-    const institution= localStorage.getItem("institution");
-    const email= localStorage.getItem("email");
     setMessage("");
 
-  try{
-    const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name:fullname, email:email, institution:institution }),
-    });
-    if (!response.ok) {
-      setMessage("Sorry, failed to update user. Please try again.");
-      return;
-    }
-    setMessage("User information updated successfully.");
+  try {
+      const response = await fetch(
+        `http://localhost:8080/api/certificates/${userId}?color=${encodeURIComponent(color)}`,
+        {
+          method: "PUT",
+        }
+      );
 
-   } catch(err){ 
-      setMessage("Sorry, something went wrong while updating the user information, please try again.");      
+      if (!response.ok) {
+        setMessage("Failed to update certificate.");
+        return;
+      }
+
+      setMessage("Certificate updated successfully.");
+      setCertificateExists(true);
+    } catch (err) {
+      setMessage("Failed to update certificate.");
     }
   };
 
@@ -171,8 +169,7 @@ function CertificateCreator() {
         <input
           type="color"
           value={color}
-          onChange={(e) => setColor(e.target.value)} //user picking color
-          disabled={certificateExists} 
+          onChange={(e) => setColor(e.target.value)}
         />
       </div>
 
@@ -202,7 +199,9 @@ function CertificateCreator() {
       </button>
 
       <div style={{marginTop:"15px"}}>
-        <button onClick={updateUser} style={{ marginRight: "10px" }}>
+        <button onClick={updateCertificate} style={{ marginRight: "10px" }}
+        disabled={!certificateExists}
+        >
           Update Certificate Information
         </button>
 
