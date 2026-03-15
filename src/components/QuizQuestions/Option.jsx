@@ -4,7 +4,7 @@
 function Option({ optionText, selectedOption, onSelect }) {
   return (
     <label style={{ cursor: "pointer", display: "block", marginBottom: "8px" }}>
-      {/* radio input */}
+      {/*radio input*/}
       <input
         type="radio"
         value={optionText}
@@ -12,7 +12,7 @@ function Option({ optionText, selectedOption, onSelect }) {
         onChange={() => onSelect(optionText)} //call parent handler to update selected option
       />
       
-      {" "}{optionText}
+      {" "}{optionText} {/*display option text next to radio button*/}
     </label>
   );
 }

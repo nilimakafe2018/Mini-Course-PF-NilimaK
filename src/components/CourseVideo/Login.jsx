@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+//function to notify parent when user creation is successful, and whether the user already has a certificate or not
 function Login({onLoginSuccess}) {
   const [fullname, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ function Login({onLoginSuccess}) {
     }
 
     try{
+      //sending a post request to backend to create a new user 
       const response= await fetch("http://localhost:8080/api/users", {
         method: "POST",
         headers: {
@@ -27,8 +29,9 @@ function Login({onLoginSuccess}) {
          throw new Error("Sorry, failed to create user. Please try again.");
        }
 
-      const data= await response.json();
+      const data= await response.json(); //converting response into json
 
+      //storing user data in localstorage for later use
       localStorage.setItem("userId", data.id);
       localStorage.setItem("fullname", data.name);
       localStorage.setItem("institution", data.institution);
@@ -40,7 +43,7 @@ function Login({onLoginSuccess}) {
       setFullName("");
       setEmail("");
       setInstitution("");
-      onLoginSuccess();
+      //onLoginSuccess();
 
       if(certResponse.ok) {
         onLoginSuccess(true); //existing user with certificate

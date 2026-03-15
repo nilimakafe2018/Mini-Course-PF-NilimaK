@@ -1,5 +1,5 @@
-import Button from "../Button/Button"; //importing my child component 
-import React, { useState } from "react";
+import Button from "../Button/Button";
+import React, { useState, useEffect } from "react";
 import QuizQuestion from "../QuizQuestions/QuizQuestion";
 import quizData from "../QuizQuestions/quizData.json";
 import "../Certificate/Certificate.css";
@@ -8,50 +8,59 @@ import Login from "./Login";
 import Video from "./Video";
 import CertificateCreator from "../Certificate/CertificateCreator";
 
-//my main parent component which controls the entire course flow.
 function CourseVideo() {
+  //state to track which page the user is currently on
+  const [changePages, setChangePages] = useState(() => {
+    const savedPage = localStorage.getItem("changePages");
+    return savedPage !== null ? Number(savedPage) : 0;
+  });
 
-  const [changePages, setChangePages] = useState(0);
-
-  //tracking user score and increase by 1 for every correct quiz answer. 
-  const [score, setScore] = useState(0);
+  //state to track quiz score
+  const [score, setScore] = useState(() => {
+    const savedScore = localStorage.getItem("score");
+    return savedScore !== null ? Number(savedScore) : 0;
+  });
 
   const [errorMessage, setErrorMessage] = useState(null);
 
-  //Tracking whether each quiz are completed
-  const flagQuizzesDone = []
+  //saving current page to local storage whenever changesPages state change
+  useEffect(() => {
+    localStorage.setItem("changePages", changePages);
+  }, [changePages]);
 
-  //tracking whether the selected answer is correct.
+  //saving current score to local storage whenever score state change
+  useEffect(() => {
+    localStorage.setItem("score", score);
+  }, [score]);
+
+  const flagQuizzesDone = [];
   const flagQuizCorrect = [];
 
-  //function that runs when a user select answer
-  //Marks the quiz as done, record correctness and clear any previous message
+  //function to called by QuizQuestion component after user selects answer
   function quizScoreObtained(correctFlag) {
-    flagQuizzesDone[changePages - 2] = true;
-    flagQuizCorrect[changePages - 2] = correctFlag;
+    flagQuizzesDone[changePages - 2] = true;            // Mark current quiz complete
+    flagQuizCorrect[changePages - 2] = correctFlag;     //storing whether the answer is correct
     setErrorMessage(null);
   }
 
-  //handles click on the next button, function to controls navigation through the pages
+  //function to handle moving to next page
   const handleNext = () => {
-
-    // handle next click on video 
     if (changePages === 1) {
-      setChangePages(2); //going to first quiz question
+      setChangePages(2);
       return;
     }
 
-    // quiz 1 to 6, check if the quiz is done, if correct increase score and go to next page
+    //checking if the user is currently on quiz page
+    //prevent moving forward without selecting answer
     if (changePages >= 2 && changePages < quizData.length + 2) {
-
       if (!flagQuizzesDone[changePages - 2]) {
-        setErrorMessage("Please complete the quiz first!")
+        setErrorMessage("Please complete the quiz first!");
         return;
       }
 
-      //if user answerd, check if the answer is correct and update socre
+      //if answer is selected, check answer and move to next pahe
       if (flagQuizzesDone[changePages - 2]) {
-        if (flagQuizCorrect[changePages - 2]) {
+        if (flagQuizCorrect[changePages - 2]) {       //increasing score if the answer is correct
           setScore(score + 1);
         }
 
@@ -63,27 +72,27 @@ function CourseVideo() {
 
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px", marginTop: "0px", paddingBottom: "20px" }}>
-
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: "30px", marginTop: "0px", paddingBottom: "20px" }}>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             gap: "5px",
-
           }}
         >
-
-          {/* conditional rendering of each component and displaying the right component for the current page*/}
           {changePages === 0 &&
-            <div><Login onLoginSuccess={(hasCertificate) =>{
-              if (hasCertificate) {
-                setChangePages(quizData.length+3); //go directly to certificate page
-              } else {setChangePages(1); //go to video page
-              }
-            }}
-            /> </div>
+            <div>
+              <Login
+                onLoginSuccess={(hasCertificate) => {
+                  if (hasCertificate) {
+                    setChangePages(quizData.length + 3);
+                  } else {
+                    setChangePages(1);
+                  }
+                }}
+              />
+            </div>
           }
 
           {changePages === 1 &&
@@ -91,27 +100,35 @@ function CourseVideo() {
           }
 
           {changePages >= 2 && changePages < quizData.length + 2 &&
-            //passing question from json and passing callback function
-            <div><QuizQuestion data={quizData[changePages - 2]} choiceSelected={quizScoreObtained} /></div>
+            <div>
+              <QuizQuestion
+                data={quizData[changePages - 2]}
+                choiceSelected={quizScoreObtained}
+              />
+            </div>
           }
 
+          {/* result page after all quizzes are done */}
           {changePages === quizData.length + 2 && (
             <div>
               <ShowResult
                 score={score}
                 restartCourse={() => {
-                  setScore(0);
-                  setChangePages(1);}}
+                  setScore(0);                
+                  setChangePages(1);
+                  localStorage.setItem("score", 0);
+                  localStorage.setItem("changePages", 1);
+                }}
               />
             </div>
-          )
-            
-          }
+          )}
 
+          {/* final page, certificate creator*/}
           {changePages === quizData.length + 3 &&
             <div><CertificateCreator /></div>
           }
 
+          {/* showing Next button in all pages except login page, result page and certificate page */}
           {changePages !== 8 && changePages !== 0 && changePages !== quizData.length + 3 && (
             <>
               {errorMessage &&
@@ -119,13 +136,13 @@ function CourseVideo() {
                   {errorMessage}
                 </div>
               }
-              <Button text="Next" onClick={handleNext} /> {/*I use my reusable button here only */}
+              <Button text="Next" onClick={handleNext} />
             </>
           )}
-
         </div>
       </div>
     </>
   );
 }
+
 export default CourseVideo;

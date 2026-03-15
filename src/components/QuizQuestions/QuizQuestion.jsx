@@ -3,20 +3,21 @@ import Option from "./Option"; //option component that used to display each answ
 
 //receving callback function choiceSelected and data from its parent
 function QuizQuestion({ data, choiceSelected }) {
+
   //state to store which option the user selected
   const [selectedOption, setSelectedOption] = useState("");
 
   //destructing question, options and correctAnswer from the quiz data
   const { question, options, correctAnswer } = data;
 
-  //called when option is selected
+  //function to called when option is selected
   function handleSelectionChange(selectedChoice) {
     setSelectedOption(selectedChoice); //update selected option in state
     if (selectedChoice == correctAnswer) {
-      choiceSelected(true) //notify parent that the answer is correct
+      choiceSelected(true) //notify parent component that the answer is correct
     }
     else {
-      choiceSelected(false); //notify parent that the answer is wrong
+      choiceSelected(false); //notify parent component that the answer is wrong
     }
   }
 
@@ -31,8 +32,8 @@ function QuizQuestion({ data, choiceSelected }) {
           <Option
             key={option} 
             optionText={option}
-            selectedOption={selectedOption} //passing current selected option
-            onSelect={handleSelectionChange} //callback when user select an option
+            selectedOption={selectedOption} //passing current selected option to child componet
+            onSelect={handleSelectionChange} //callback function when user select an option
           />
         ))}
       </div>

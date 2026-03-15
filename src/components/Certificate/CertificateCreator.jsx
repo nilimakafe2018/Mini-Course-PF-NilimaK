@@ -3,79 +3,86 @@ import html2canvas from "html2canvas";
 import React, { useState, useEffect } from "react";
 
 function CertificateCreator() {
-  //Storing user's name, chosen color for certificate, extra custon text
-  const [name] = useState(localStorage.getItem("fullname") || "");
-  const [email] = useState(localStorage.getItem("email") || "");
-  const [color, setColor] = useState("#4a89f0ff");
-  const [customItems, setCustomItems] = useState([]);
-  const [certificateExists, setCertificateExists] = useState(false);//state to check if certificate already exists 
-  const [message, setMessage] = useState(""); //state to show success or error messages
-  const [colorChanged, setColorChanged] = useState(false); //state to track if the user has changed the color, used to determine whether to show update button or not
+  const [name] = useState(localStorage.getItem("fullname") || "");  //get user name from local storage and keep in state
+  const [email] = useState(localStorage.getItem("email") || "");    //get user email from local storage and keep in state
+  const [color, setColor] = useState("#4a89f0ff");                
+  const [customItems, setCustomItems] = useState([]);               
+  const [certificateExists, setCertificateExists] = useState(false); 
+  const [message, setMessage] = useState("");                        
+  const [canEditColor, setCanEditColor] = useState(true);           
+  const [newItem, setNewItem] = useState("");                           
 
-  //useEffect to check if certificate already exists for the user when the component mounts
+  //checking if the current user already has certificate 
   useEffect(() => {
-  const userId = localStorage.getItem("userId");
+    const userId = localStorage.getItem("userId");
 
-  const checkCertificate = async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/certificates/user/${userId}`);
+    //function to call backend and checkk for existing certificate
+    const checkCertificate = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/certificates/user/${userId}`);
 
-      if (response.ok) {
-        const data = await response.json();
-        setCertificateExists(true);
+        if (response.ok) {
+          const data = await response.json();
+          setCertificateExists(true);   //mark this user has already has certificate
+          setCanEditColor(false);       //locking color picker initially
 
-        if (data.certificateColor) {
-          setColor(data.certificateColor);
+          //load the saved certificate color from db
+          if (data.certificateColor) {
+            setColor(data.certificateColor);
+          }
         }
+      } catch (err) {
+        console.error("Error checking certificate");
       }
-    } catch (err) {
-      console.error("Error checking certificate");
-    }
-  };
+    };
 
-  checkCertificate();
-}, []);
-  
-  //temporary state for storing the text typed in "Add custom text" input
-  const [newItem, setNewItem] = useState("");
+    checkCertificate();
+  }, []);
 
-  //function to add a new custom text item to the list of custom items, then clearing the input field
+  //adding custom text
   const addItem = () => {
     if (!newItem) return;
-    setCustomItems([...customItems, newItem]);
+    setCustomItems([...customItems, newItem]);     //adding new custom text to the list
     setNewItem("");
   };
 
-  //function to handle certificate download
-  //first checks if the certificate already exists for the user, if not it creates a new one
+  //handle creating or updating certificate and downloading it
   const handleDownload = async () => {
-    const userId = localStorage.getItem("userId"); //getting the userid stored in localstorage during registration
-    setMessage(""); //clearing any previous messages
+    const userId = localStorage.getItem("userId");
+    setMessage("");
 
     try {
-      //first checking if the certificate already exists
-      let response = await fetch(`http://localhost:8080/api/certificates/user/${userId}`);
-
-      //if certificate does not exist create new one call the backend API to create new certificate
-      if (response.status === 404) {
-        response = await fetch(
+      //first time user, create new certificate in the db
+      if (!certificateExists) {
+        const response = await fetch(
           `http://localhost:8080/api/certificates/${userId}?color=${encodeURIComponent(color)}`,
-          { method: "POST", }
+          { method: "POST" }
         );
 
-        //show error if certificate creation failed, i need to work more in this logic
         if (!response.ok) {
-          setMessage("Failed to download certificate. Please try again.");
+          setMessage("Failed to create certificate. Please try again.");
           return;
         }
-        setCertificateExists(true); //updating state to true after creating certificate  
-      }
-      else if (!response.ok) {
-        setMessage("Failed to download certificate. Please try again.");
-        return;
+
+        //mark certificate as created and lock color editing
+        setCertificateExists(true);
+        setCanEditColor(false);     
+      } else if (canEditColor) {
+        const response = await fetch(
+          `http://localhost:8080/api/certificates/${userId}?color=${encodeURIComponent(color)}`,
+          { method: "PUT" }
+        );
+
+        if (!response.ok) {
+          setMessage("Failed to update certificate color.");
+          return;
+        }
+
+        //locking color picker again
+        setCanEditColor(false);
       }
 
-      //downloading certificate from the page
+      //capture certificate preview as image
       const certificate = document.querySelector(".certificate");
 
       if (!certificate) {
@@ -83,69 +90,49 @@ function CertificateCreator() {
         return;
       }
 
+      //converting certificate html into an image
       html2canvas(certificate).then((canvas) => {
         const link = document.createElement("a");
         link.download = "certificate.png";
-        link.href = canvas.toDataURL();
+        link.href = canvas.toDataURL();   //convert canvas to downloadable url
         link.click();
       });
-
-    } 
-    //showing error if there is an issue with fetching or creating certificate
-    catch (err) {
-      setMessage("Sorry, something went wrong while creating the certificate, please try again.");
+    } catch (err) {
+      setMessage("Sorry, something went wrong while downloading the certificate. Please try again.");
     }
-
   };
 
-  //updating existing certificate color
-  const updateCertificate = async() =>{
-    const userId= localStorage.getItem("userId");
+  //unlocking color picker so user can change certificate color
+  const updateCertificate = () => {
+    setMessage("");
+    setCanEditColor(true);  //enable color editing
+    setMessage("You can now choose a new color.");
+  };
+
+  //deleting the user from db
+  const deleteUser = async () => {
+    const userId = localStorage.getItem("userId");
     setMessage("");
 
-  try {
-      const response = await fetch(
-        `http://localhost:8080/api/certificates/${userId}?color=${encodeURIComponent(color)}`,
-        {
-          method: "PUT",
-        }
-      );
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/${userId}`, {
+        method: "DELETE",
+      });
 
       if (!response.ok) {
-        setMessage("Failed to update certificate.");
+        setMessage("Sorry, failed to delete user. Please try again.");
         return;
       }
 
-      setMessage("Certificate updated successfully.");
-      setCertificateExists(true);
+      //removing all stored user information
+      localStorage.removeItem("userId");
+      localStorage.removeItem("fullname");
+      localStorage.removeItem("institution");
+      localStorage.removeItem("email");
+
+      setMessage("User deleted successfully.");
     } catch (err) {
-      setMessage("Failed to update certificate.");
-    }
-  };
-
-  //deleting current user
-  const deleteUser = async() =>{
-    const userId= localStorage.getItem("userId");
-    setMessage("");
-
-  try{
-    const response= await fetch(`http://localhost:8080/api/users/${userId}`, {
-      method: "DELETE",
-    });
-    if (!response.ok) {
-      setMessage("Sorry, failed to delete user. Please try again.");
-      return;
-    }
-
-    localStorage.removeItem("userId");
-    localStorage.removeItem("fullname");
-    localStorage.removeItem("institution");
-    localStorage.removeItem("email");
-
-    setMessage("User deleted successfully.");
-  
-   } catch(err){
-      setMessage("Sorry, something went wrong while deleting the user, please try again.");      
+      setMessage("Sorry, something went wrong while deleting the user, please try again.");
     }
   };
 
@@ -155,14 +142,11 @@ function CertificateCreator() {
         Congratulations, You passed!
         <span className="clap-emoji">👏</span>
       </h2>
+
       <h4>Create your custom certificate! Please don't forget to download your certificate.</h4>
 
       <div className="input-group">
-        <input
-          type="text"
-          value={name}
-          readOnly
-        />
+        <input type="text" value={name} readOnly />
       </div>
 
       <div className="input-group">
@@ -170,27 +154,22 @@ function CertificateCreator() {
         <input
           type="color"
           value={color}
-          onChange={(e) =>{
-            setColor(e.target.value);
-          setColorChanged(true);
-          }}
+          onChange={(e) => setColor(e.target.value)}
+          disabled={!canEditColor}
         />
       </div>
 
-      {/* user adding a custom text field */}
       <div>
         <input
           type="text"
           placeholder="Add custom text"
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
-          
         />
         <button onClick={addItem}>Add</button>
       </div>
 
-      {/* Live certificate Preview */}
-      {/* sending all info to certifcatePreview component to see live preview */}
+      {/*live preview of the certificate */}
       <CertificatePreview
         name={name}
         email={email}
@@ -202,9 +181,12 @@ function CertificateCreator() {
         {certificateExists ? "Download Existing Certificate" : "Create and Download Certificate"}
       </button>
 
-      <div style={{marginTop:"15px"}}>
-        <button onClick={updateCertificate} style={{ marginRight: "10px" }}
-        disabled={!certificateExists || !colorChanged}
+      {/* update and delete buttonsupdate and delete */}
+      <div style={{ marginTop: "15px" }}>
+        <button
+          onClick={updateCertificate}
+          style={{ marginRight: "10px" }}
+          disabled={!certificateExists || canEditColor} //olny allow update if the certificate already downloaded before
         >
           Update Certificate Color
         </button>
@@ -213,7 +195,8 @@ function CertificateCreator() {
           Delete User
         </button>
       </div>
-      {message && <p style={{ marginTop: "15px" }}>{message}</p>}
+
+      {message && <p style={{ marginTop: "15px" }}>{message}</p>} 
     </div>
   );
 }

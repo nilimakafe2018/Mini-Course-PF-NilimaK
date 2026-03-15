@@ -1,6 +1,6 @@
 import "./Certificate.css";
 
-// receiving data from CertificateCreator
+// receiving data from CertificateCreator component
 function CertificatePreview({ name, email, color, customItems }) {
   return (
     <div className="certificate" style={{ borderColor: color }}>
@@ -20,5 +20,4 @@ function CertificatePreview({ name, email, color, customItems }) {
     </div>
   );
 }
-
 export default CertificatePreview;

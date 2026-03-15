@@ -1,6 +1,6 @@
 function ReDo({restartCourse}) {
 
-  // function to restart the course by navigating to the home page
+  // function to restart the course by navigating to the home page wher user fails the quiz
   const handleRestart = () => {
     restartCourse()
   };

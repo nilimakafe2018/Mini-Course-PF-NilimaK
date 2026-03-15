@@ -11,9 +11,11 @@ function Home() {
 
   //navigate to course page when user click on start course button
   const handleStartCourse = () => {
-    navigate("/course")
+    localStorage.removeItem("changePages");  //clearing previous course progress stored in local storage
+    localStorage.removeItem("score");
+    navigate("/course");
 
-  }
+  };
 
   return (
 
